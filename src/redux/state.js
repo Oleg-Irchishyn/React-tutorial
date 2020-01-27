@@ -32,7 +32,6 @@ let store = {
             ],
 
             newMessageBody: ''
-
         }
     },
     _callSubscriber() {
@@ -72,6 +71,7 @@ let store = {
 export const AddPostActionCreator = () => ({ type: ADD_POST });
 export const updatedNewPostTextActionCreator = (text) =>
     ({ type: UPDATE_NEW_POST_TEXT, newText: text });
+
 export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
 export const updatedNewMessageBodyCreator = (body) =>
     ({ type: UPDATE_NEW_MESSAGE_BODY, body: body });
