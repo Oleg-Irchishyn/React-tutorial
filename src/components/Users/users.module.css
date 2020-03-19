@@ -1,9 +1,27 @@
 .usersPhoto {
-  width: 100px;
+  max-width: 100px;
   height: auto;
-  max-width: 100%;
 }
 
 .selectedPage {
   font-weight: bold;
+}
+
+.paginationWrapper {
+  margin: 0 0 20px 0;
+}
+
+.usersList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.usersList .usersList__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 25%;
+  margin: 0 0 20px 0;
 }
