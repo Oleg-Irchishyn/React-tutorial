@@ -1,27 +1,44 @@
+.preLoaderWrapper {
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+}
+
+.preLoaderWrapper img {
+	position: absolute;
+	top: 50%;
+	bottom: 0;
+	right: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .usersPhoto {
-  max-width: 100px;
-  height: auto;
+	max-width: 100px;
+	height: auto;
 }
 
 .selectedPage {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .paginationWrapper {
-  margin: 0 0 20px 0;
+	margin: 0 0 20px 0;
 }
 
 .usersList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
 
 .usersList .usersList__item {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 25%;
-  margin: 0 0 20px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 25%;
+	margin: 0 0 20px 0;
 }
