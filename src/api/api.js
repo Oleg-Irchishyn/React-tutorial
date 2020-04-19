@@ -35,21 +35,27 @@ export const profileAPI = {
 
 export const authAPI = {
   authMe: () => {
-    return instance.get(`auth/me`).then(response => {
-      return response.data;
-    });
+    return instance.get(`auth/me`);
+  },
+  login: (email, password, rememberMe = false) => {
+    return instance.post(`auth/login`, { email, password, rememberMe });
+  },
+  logout: () => {
+    return instance.delete(`auth/login`);
   }
 }
 
 export const followAPI = {
   toggleFollow: (userId) => {
-    return instance.post(`/follow/` + userId).then(response => {
+    return instance.post(`follow/` + userId).then(response => {
       return response.data;
     });
   },
   toggleUnFollow: (userId) => {
-    return instance.delete(`/follow/` + userId).then(response => {
+    return instance.delete(`follow/` + userId).then(response => {
       return response.data;
     });
   }
 }
+
+
