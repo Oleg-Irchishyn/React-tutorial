@@ -7,7 +7,10 @@ import {
 } from '../../redux/usersReducer';
 import Users from "./Users";
 import PreloaderImg from '../common/Preloader/PreloaderImg';
-import { withAuthRedirect } from '../../hoc/WithAuthRedirect';
+import {
+  getAllUsers, getPageSize, getTotalUsersCount,
+  getCurrentPage, getIsFetching, getFollowingInProgress
+} from '../../redux/usersSelectors';
 import { compose } from 'redux'
 
 class UsersContainer extends React.Component {
@@ -24,7 +27,7 @@ class UsersContainer extends React.Component {
   }
 
   render() {
-    return <>
+    return <React.Fragment>
       {this.props.isFetching ? <PreloaderImg /> : null}
       <Users totalUsersCount={this.props.totalUsersCount}
         pageSize={this.props.pageSize}
@@ -37,25 +40,22 @@ class UsersContainer extends React.Component {
         acceptFollow={this.props.acceptFollow}
         acceptUnFollow={this.props.acceptUnFollow}
       />
-    </>
+    </React.Fragment>
   }
 }
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress
+    users: getAllUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state)
   }
 }
 
-
-
 export default compose(
-  withAuthRedirect,
   connect(mapStateToProps, {
     follow, unfollow, setCurrentPage,
     toggleFollowingProgress, getUsers,
