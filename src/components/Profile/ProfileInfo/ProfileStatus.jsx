@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.PureComponent {
   state = {
     editMode: false,
     status: this.props.status
@@ -31,6 +31,11 @@ class ProfileStatus extends React.Component {
     }
   };
 
+  /* При использовании PureComponent метод shoulComponentUpdate не нужен - его задачу заменяет PureComponent
+    shouldComponentUpdate(nextProps, nextState) {
+      return nextProps !== this.props || nextState !== this.state;
+    }
+   */
   render() {
     return (
       <React.Fragment>
