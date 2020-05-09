@@ -20,14 +20,6 @@
 	height: auto;
 }
 
-.selectedPage {
-	font-weight: bold;
-}
-
-.paginationWrapper {
-	margin: 0 0 20px 0;
-}
-
 .usersList {
 	display: flex;
 	flex-wrap: wrap;
