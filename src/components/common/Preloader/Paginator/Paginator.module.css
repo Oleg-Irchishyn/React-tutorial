@@ -3,5 +3,15 @@
 }
 
 .paginationWrapper {
-	margin: 0 0 20px 0;
+	margin: 20px 0 20px 0;
+}
+
+.paginationWrapper span {
+	padding: 2px;
+	border: 1px solid grey;
+}
+
+.paginationWrapper span.selectedPage {
+	font-weight: bold;
+	border-color: black;
 }
