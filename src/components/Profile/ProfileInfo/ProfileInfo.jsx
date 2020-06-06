@@ -9,8 +9,8 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, saveProfile, ...p
   let [editMode, setEditMode] = useState(false);
 
   const onSubmit = (formData) => {
-    saveProfile(formData);
-    setEditMode(false);
+    const promise = saveProfile(formData)
+    promise.then(() => setEditMode(false))
   }
 
   if (!profile) {
