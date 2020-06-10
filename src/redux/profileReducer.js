@@ -78,9 +78,13 @@ export const getStatus = (userId) => {
 
 export const updateStatus = (status) => {
   return async (dispatch) => {
-    let response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
-      dispatch(setStatus(status));
+    try {
+      let response = await profileAPI.updateStatus(status);
+      if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+      }
+    } catch (error) {
+      alert("Too many symbols");
     }
   }
 }
