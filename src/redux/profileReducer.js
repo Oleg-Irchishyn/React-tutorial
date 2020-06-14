@@ -84,7 +84,7 @@ export const updateStatus = (status) => {
         dispatch(setStatus(status));
       }
     } catch (error) {
-      alert("Too many symbols");
+      alert(error.message); // тут надо диспатчить ошибку
     }
   }
 }
