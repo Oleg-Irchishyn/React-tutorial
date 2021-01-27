@@ -1,4 +1,5 @@
-import *as axios from 'axios';
+import axios from 'axios';
+import { profileType } from '../types/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -20,18 +21,18 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-  getProfile: (userId) => {
+  getProfile: (userId: number) => {
     return instance.get(`profile/` + userId).then(response => {
       return response.data;
     });
   },
-  getStatus: (userId) => {
+  getStatus: (userId: number) => {
     return instance.get(`profile/status/` + userId);
   },
-  updateStatus: (status) => {
+  updateStatus: (status: string) => {
     return instance.put(`profile/status/`, { status: status });
   },
-  savePhoto: (image) => {
+  savePhoto: (image: any) => {
     const formData = new FormData();
     formData.append("image", image)
     return instance.put(`profile/photo`, formData, {
@@ -40,17 +41,44 @@ export const profileAPI = {
       }
     });
   },
-  saveProfile: (profile) => {
+  saveProfile: (profile: profileType) => {
     return instance.put(`profile`, profile);
   }
 }
 
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1
+}
+
+export enum ResultCodesForCaptcha {
+  CaptchaIsRequired = 10
+}
+
+type MeResponseType = {
+  data: {
+    id: number,
+    email: string,
+    login: string
+  }
+  resultCode: ResultCodesEnum,
+  messages: Array<string>
+}
+
+type LoginResponseType = {
+  data: {
+    userId: number
+  },
+  messages: Array<string>,
+  resultCode: ResultCodesEnum | ResultCodesForCaptcha
+}
+
 export const authAPI = {
   authMe: () => {
-    return instance.get(`auth/me`);
+    return instance.get<MeResponseType>(`auth/me`).then(response => response.data);
   },
-  login: (email, password, rememberMe = false, captcha = null) => {
-    return instance.post(`auth/login`, { email, password, rememberMe, captcha });
+  login: (email: string, password: string, rememberMe: boolean = false, captcha: null | string = null) => {
+    return instance.post<LoginResponseType>(`auth/login`, { email, password, rememberMe, captcha }).then(response => response.data);
   },
   logout: () => {
     return instance.delete(`auth/login`);
