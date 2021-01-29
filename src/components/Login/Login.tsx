@@ -1,6 +1,6 @@
 import React from 'react'
 import { InjectedFormProps, reduxForm } from 'redux-form'
-import { Input, createField } from '../common/Preloader/FormsControls/FormsControls';
+import { Input, createField} from '../common/Preloader/FormsControls/FormsControls';
 import { required } from '../../redux/utils/validators/validators';
 import { connect } from 'react-redux';
 import { login } from '../../redux/authReducer';
@@ -15,12 +15,12 @@ type LoginFormOwnProps = {
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps > & LoginFormOwnProps > = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField("Email", "email", Input, [required])}
-      {createField("Password", "password", Input, [required], { type: "password" })}
-      {createField(null, "rememberMe", Input, [required], { type: "checkbox" }, "remember me")}
+      {createField<LoginFormValuesTypeKeys>("Email", "email", Input, [required])}
+      {createField<LoginFormValuesTypeKeys>("Password", "password", Input, [required], { type: "password" })}
+      {createField<LoginFormValuesTypeKeys>(undefined, "rememberMe", Input, [required], { type: "checkbox" }, "remember me")}
 
       {captchaUrl && <img alt="captcha" src={captchaUrl} />}
-      {captchaUrl && createField("Symbols from image", "captcha", Input, [required])}
+      {captchaUrl && createField<LoginFormValuesTypeKeys>("Symbols from image", "captcha", Input, [required])}
 
       {error && <div className={styles.formSummaryError}>
         {error}
@@ -46,12 +46,14 @@ type MapDispatchPropsType = {
   login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
-type LoginFormValuesType = {
-  email: string, 
-  password: string, 
-  rememberMe: boolean, 
+export type LoginFormValuesType = {
+  email: string,
+  password: string,
+  rememberMe: boolean,
   captcha: string
 }
+
+type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType , string>;
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType > = (props) => {
   const onSubmit = (formData: LoginFormValuesType) => {

@@ -86,12 +86,12 @@ export const authAPI = {
 }
 
 export const followAPI = {
-  toggleFollow: (userId) => {
+  toggleFollow: (userId: number) => {
     return instance.post(`follow/` + userId).then(response => {
       return response.data;
     });
   },
-  toggleUnFollow: (userId) => {
+  toggleUnFollow: (userId: number) => {
     return instance.delete(`follow/` + userId).then(response => {
       return response.data;
     });
