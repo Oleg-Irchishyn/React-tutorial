@@ -101,16 +101,16 @@ export const getUserProfile = (userId: number) => {
 
 export const getStatus = (userId: number) => {
   return async (dispatch: any) => {
-    let response = await profileAPI.getStatus(userId);
-    dispatch(setStatus(response.data));
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatus(data));
   }
 }
 
 export const updateStatus = (status: string) => {
   return async (dispatch: any) => {
     try {
-      let response = await profileAPI.updateStatus(status);
-      if (response.data.resultCode === 0) {
+      let data = await profileAPI.updateStatus(status);
+      if (data.resultCode === 0) {
         dispatch(setStatus(status));
       }
     } catch (error) {
@@ -122,9 +122,9 @@ export const updateStatus = (status: string) => {
 
 export const savePhoto = (file: any) => {
   return async (dispatch: any) => {
-    let response = await profileAPI.savePhoto(file);
-    if (response.data.resultCode === 0) {
-      dispatch(savePhotoSuccess(response.data.data.photos));
+    let data = await profileAPI.savePhoto(file);
+    if (data.resultCode === 0) {
+      dispatch(savePhotoSuccess(data.data.photos));
     }
   }
 }

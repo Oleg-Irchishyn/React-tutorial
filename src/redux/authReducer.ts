@@ -4,8 +4,6 @@ import { stopSubmit } from "redux-form";
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA'; /*правильное указание типа, чтобы не повторился тип SET_USER_DATA в других редьюсерах*/
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
-
-
 let initialState = {
   userId: null as number | null,
   email: null as string | null,
@@ -97,8 +95,8 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 }
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
-  const response = await securityAPI.getCaptchaUrl();
-  const captchaUrl = response.data.url;
+  const data = await securityAPI.getCaptchaUrl();
+  const captchaUrl = data.url;
   dispatch(getCaptchaUrlSuccess(captchaUrl));
 }
 
