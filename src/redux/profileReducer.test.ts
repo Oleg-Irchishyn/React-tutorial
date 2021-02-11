@@ -1,4 +1,4 @@
-import profileReducer, { AddPostActionCreator, deletePost } from "./profileReducer";
+import profileReducer, { actions } from "./profileReducer";
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,12 +8,14 @@ let state = {
     { id: 2, message: 'It is my new post', likesCount: 23 },
     { id: 3, message: 'Blabla', likesCount: 8 },
     { id: 4, message: 'Dada', likesCount: 11 }
-  ]
+  ],profile: null,
+  status: "",
+  newPostText: ""
 };
 
 it('length of posts should be incremented', () => {
   // 1. test data
-  let action = AddPostActionCreator("it-kamasutra.com");
+  let action =  actions.AddPostActionCreator("it-kamasutra.com");
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -24,7 +26,7 @@ it('length of posts should be incremented', () => {
 
 it('message of new post should be correct', () => {
   // 1. test data
-  let action = AddPostActionCreator("it-kamasutra.com");
+  let action =  actions.AddPostActionCreator("it-kamasutra.com");
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -35,7 +37,7 @@ it('message of new post should be correct', () => {
 
 it('length of posts should be decremented after deleting', () => {
   // 1. test data
-  let action = deletePost(1);
+  let action = actions.deletePost(1);
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -46,7 +48,7 @@ it('length of posts should be decremented after deleting', () => {
 
 it('length of posts should not be decremented after deleting an incorrect id', () => {
   // 1. test data
-  let action = deletePost(1000);
+  let action = actions.deletePost(1000);
 
   // 2. action
   let newState = profileReducer(state, action);

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import {
-  follow, unfollow, setCurrentPage,
-  toggleFollowingProgress, getUsers,
-  acceptFollow, acceptUnFollow
+  getUsers,
+  acceptFollow, acceptUnFollow, actions 
 } from '../../redux/usersReducer';
 import Users from "./Users";
 import PreloaderImg from '../common/Preloader/PreloaderImg';
@@ -84,9 +83,31 @@ let mapStateToProps = (state: appStateType): MapStatePropTypes => {
   }
 }
 
+let mapDispatchToProps = (dispatch: Dispatch<any>):MapDispatchPropTypes  =>{
+  return {  
+    acceptUnFollow: (userId: number) => {
+      dispatch(acceptUnFollow(userId))
+    },
+    acceptFollow: (userId: number) => {
+      dispatch(acceptFollow(userId))
+    },
+    follow: (userId: number) => {
+      dispatch(actions.follow(userId))
+    },
+    unfollow: (userId: number) => {
+      dispatch(actions.unfollow(userId))
+    },
+    getUsers: (currentPage: number, pageSize: number) => {
+      dispatch(getUsers(currentPage, pageSize))
+    },
+    setCurrentPage: (currentPage: number) => {
+      dispatch( actions.setCurrentPage(currentPage))
+    },
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => {
+      dispatch(actions.toggleFollowingProgress(isFetching, userId))
+    }
+}
+}
+
 export default compose(
-  connect<MapStatePropTypes, MapDispatchPropTypes, OwnPropTypes, appStateType>(mapStateToProps, {
-    follow, unfollow, setCurrentPage,
-    toggleFollowingProgress, getUsers,
-    acceptFollow, acceptUnFollow
-  }))(UsersContainer);
+  connect<MapStatePropTypes, MapDispatchPropTypes, OwnPropTypes, appStateType>(mapStateToProps, mapDispatchToProps))(UsersContainer);
