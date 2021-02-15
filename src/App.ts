@@ -11,16 +11,19 @@ import { withRouter } from 'react-router-dom';
 import { initializeApp } from './redux/appReducer';
 import { compose } from 'redux';
 import { withSuspense } from './hoc/WithSuspense';
+import { appStateType } from './redux/redux-store';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType =  {
+  initializeApp: () => void
+}
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  catchAllUnhandledErrors = (reason, promise) => {
+class App extends React.Component<MapPropsType &  DispatchPropsType> {
+
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
     alert("Some Error occured");
   }
   componentDidMount() {
@@ -53,11 +56,11 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: appStateType) => ({
   initialized: state.app.initialized
 });
 
-export default compose(
+export default compose <React.ComponentType>(
   connect(mapStateToProps, { initializeApp }),
   withRouter)
   (App);
