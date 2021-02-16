@@ -15,15 +15,17 @@ import { appStateType } from './redux/redux-store';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const SuspendedDialogs = withSuspense(DialogsContainer);
+const SuspendedProfile = withSuspense(ProfileContainer);
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType =  {
+type DispatchPropsType = {
   initializeApp: () => void
 }
 
-class App extends React.Component<MapPropsType &  DispatchPropsType> {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
 
-  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+  catchAllUnhandledErrors = (event: any) => {
     alert("Some Error occured");
   }
   componentDidMount() {
@@ -44,8 +46,8 @@ class App extends React.Component<MapPropsType &  DispatchPropsType> {
         <div className="app-wrapper-content">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/profile" />} />
-            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
-            <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
+            <Route path="/dialogs" render={() => <SuspendedDialogs />} />
+            <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
             <Route path="/users" render={() => <UsersContainer pageTitle={"Users"} />} />
             <Route path="/login" render={() => <Login />} />
             <Route path="*" render={() => <div>404 NOT FOUND</div>} />
@@ -60,7 +62,7 @@ const mapStateToProps = (state: appStateType) => ({
   initialized: state.app.initialized
 });
 
-export default compose <React.ComponentType>(
+export default compose<React.ComponentType>(
   connect(mapStateToProps, { initializeApp }),
   withRouter)
   (App);
