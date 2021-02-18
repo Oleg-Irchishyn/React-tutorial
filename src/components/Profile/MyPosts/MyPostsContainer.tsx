@@ -1,4 +1,4 @@
-import { AddPostActionCreator, actions } from '../../../redux/profileReducer';
+import { actions } from '../../../redux/profileReducer';
 import MyPosts, { MapStatePropsType, MapDispatchPropsType } from './MyPosts';
 import { connect } from 'react-redux';
 import { appStateType } from '../../../redux/redux-store';
@@ -6,7 +6,6 @@ import { appStateType } from '../../../redux/redux-store';
 const mapStateToProps = (state: appStateType) => {
   return {
     posts: state.profilePage.posts,
-    newPostText: state.profilePage.newPostText,
   };
 };
 

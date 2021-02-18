@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
-const ProfileStatusWithHooks = (props) => {
+type PropsType = {
+  status: string;
+  updateStatus: (status: string) => void;
+};
 
+const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
   let [editMode, setEditMode] = useState(false);
   let [status, setStatus] = useState(props.status);
 
@@ -11,34 +15,37 @@ const ProfileStatusWithHooks = (props) => {
 
   const activateEditMode = () => {
     setEditMode(true);
-  }
+  };
 
   const deActivateEditMode = () => {
     setEditMode(false);
     props.updateStatus(status);
-  }
+  };
 
-  const onStatusChange = (e) => {
-    setStatus(e.currentTarget.value)
-  }
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setStatus(e.currentTarget.value);
+  };
 
   return (
     <React.Fragment>
-      {!editMode &&
+      {!editMode && (
         <div>
-          <b>Status:</b><span onDoubleClick={activateEditMode}>
-            {props.status || "----"}
-          </span>
+          <b>Status:</b>
+          <span onDoubleClick={activateEditMode}>{props.status || '----'}</span>
         </div>
-      }
-      {editMode &&
+      )}
+      {editMode && (
         <div>
-          <input onChange={onStatusChange} onBlur={deActivateEditMode} autoFocus={true} value={status} />
+          <input
+            onChange={onStatusChange}
+            onBlur={deActivateEditMode}
+            autoFocus={true}
+            value={status}
+          />
         </div>
-      }
-
+      )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default ProfileStatusWithHooks;
