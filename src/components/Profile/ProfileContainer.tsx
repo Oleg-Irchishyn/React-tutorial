@@ -13,7 +13,6 @@ import { withAuthRedirect } from '../../hoc/WithAuthRedirect';
 import { compose } from 'redux';
 import { appStateType } from '../../redux/redux-store';
 import { profileType } from '../../types/types';
-import { SubmissionError } from 'redux-form';
 
 type PropsType = MapStatePropstype & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
 type MapStatePropstype = ReturnType<typeof mapStateToProps>;
