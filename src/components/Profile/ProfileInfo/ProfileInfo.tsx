@@ -23,7 +23,7 @@ const ProfileInfo: React.FC<PropsType> = ({
   saveProfile,
   ...props
 }) => {
-  let [editMode, setEditMode] = useState(false);
+  let [editMode, setEditMode] = useState<boolean>(false);
 
   const onSubmit = (formData: profileType) => {
     const promise = saveProfile(formData);
