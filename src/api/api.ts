@@ -24,7 +24,7 @@ export enum ResultCodesForCaptcha {
   CaptchaIsRequired = 10
 }
 
- type ResponseType<Data = {}, ResCode = ResultCodesEnum> = {
+ export type ResponseType<Data = {}, ResCode = ResultCodesEnum> = {
   data: Data,
   messages: Array<string>,
   resultCode: ResCode

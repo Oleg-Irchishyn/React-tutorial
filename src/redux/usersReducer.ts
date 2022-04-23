@@ -3,7 +3,6 @@ import { usersAPI, followAPI } from "../api/api";
 import { updateObjectInArray } from "./utils/objectsHelpers";
 import { appStateType, BaseThunkType, InferActionsTypes } from './redux-store';
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
 let initialState = {
   users: [] as Array<usersType>,
@@ -115,14 +114,14 @@ const followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMet
 
 export const acceptFollow = (userId: number): ThunkType => {
   return async (dispatch, getState) => {
-    followUnfollowFlow(dispatch, userId, followAPI.toggleFollow.bind(followAPI), actions.follow);
+    await followUnfollowFlow(dispatch, userId, followAPI.toggleFollow.bind(followAPI), actions.follow);
 
   }
 }
 
 export const acceptUnFollow = (userId: number): ThunkType => {
   return async (dispatch, getState) => {
-    followUnfollowFlow(dispatch, userId, followAPI.toggleUnFollow.bind(followAPI), actions.unfollow);
+    await followUnfollowFlow(dispatch, userId, followAPI.toggleUnFollow.bind(followAPI), actions.unfollow);
 
   }
 }
