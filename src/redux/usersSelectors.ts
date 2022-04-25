@@ -25,6 +25,10 @@ export const getFollowingInProgress = (state: appStateType) => {
   return state.usersPage.followingInProgress;
 }
 
+export const getUsersFilter = (state: appStateType) => {
+  return state.usersPage.filter;
+}
+
 /*Selectors, created by reselect library*/
 
 export const getAllUsersSelector = createSelector(
