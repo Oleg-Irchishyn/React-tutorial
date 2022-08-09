@@ -1,20 +1,20 @@
 import React from 'react';
-import styles from './users.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { actions, filterType } from '../../redux/usersReducer';
 import Paginator from '../common/Preloader/Paginator/Paginator';
-import User from './User';
-import { usersType } from '../../types/types';
-import UsersSearchForm from './UsersSearchForm/UsersSearchForm';
-import { actions, filterType, acceptFollow, acceptUnFollow } from '../../redux/usersReducer';
-import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from './../../redux/usersReducer';
 import {
-  getCurrentPage,
-  getPageSize,
   getAllUsers,
+  getCurrentPage,
+  getFollowingInProgress,
+  getPageSize,
   getTotalUsersCount,
   getUsersFilter,
-  getFollowingInProgress,
 } from './../../redux/usersSelectors';
-import { getUsers } from './../../redux/usersReducer';
+import User from './User';
+import styles from './users.module.css';
+import UsersSearchForm from './UsersSearchForm/UsersSearchForm';
 
 type PropTypes = {
   portionSize?: number;
