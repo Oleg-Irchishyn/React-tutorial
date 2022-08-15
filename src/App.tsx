@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import { withSuspense } from './hoc/WithSuspense';
 import { appStateType } from './redux/redux-store';
 import { UsersPage } from './components/Users/UsersPage';
-import { MessageOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { MessageOutlined, ProfileOutlined, UserOutlined, WechatOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 
 const { Content, Footer, Sider } = Layout;
@@ -45,6 +45,11 @@ const items2 = [
     ],
   },
   {
+    label: <NavLink to="/chat">Chat</NavLink>,
+    key: 'submenu-chat',
+    icon: <WechatOutlined />,
+  },
+  {
     label: 'News',
     key: 'submenu-news',
     disabled: true,
@@ -63,8 +68,10 @@ const items2 = [
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 const SuspendedDialogs = withSuspense(DialogsContainer);
 const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedChatPage = withSuspense(ChatPage);
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type DispatchPropsType = {
@@ -112,6 +119,7 @@ class App extends React.Component<MapStatePropsType & DispatchPropsType> {
                 <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
                 <Route path="/developers" render={() => <UsersPage pageTitle={'Developers'} />} />
                 <Route path="/login" render={() => <LoginPage />} />
+                <Route path="/chat" render={() => <SuspendedChatPage />} />
                 <Route path="*" render={() => <div>404 NOT FOUND</div>} />
               </Switch>
             </Content>
